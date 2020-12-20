@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">دفترچه</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //icons
+    <string name="icon_camera"></string>
+    <string name="icon_card"></string>
+    <string name="icon_chart"></string>
+    <string name="icon_check"></string>
+    <string name="icon_coins"></string>
+    <string name="icon_contacts"></string>
+    <string name="icon_cross"></string>
+    <string name="icon_date"></string>
+    <string name="icon_failure"></string>
+    <string name="icon_gear"></string>
+    <string name="icon_google"></string>
+    <string name="icon_info"></string>
+    <string name="icon_left"></string>
+    <string name="icon_lock"></string>
+    <string name="icon_menu"></string>
+    <string name="icon_messages"></string>
+    <string name="icon_phone"></string>
+    <string name="icon_plus"></string>
+    <string name="icon_refresh"></string>
+    <string name="icon_register"></string>
+    <string name="icon_safe"></string>
+    <string name="icon_search"></string>
+    <string name="icon_send"></string>
+    <string name="icon_send_message"></string>
+    <string name="icon_success"></string>
+    <string name="icon_support"></string>
+    <string name="icon_transfer"></string>
+    <string name="icon_wallet"></string>
+    <string name="icon_wallet_outline"></string>
+    <string name="icon_warning"></string>
+    <string name="icon_withdraw"></string>
+    <string name="icon_open_lock"></string>
+    <string name="icon_pluse"></string>
+    <string name="icon_goods"></string>
+    <string name="icon_goods_fill"></string>
+    <string name="icon_notifications"></string>
+
+    <string name="icon_edit"></string>
+    <string name="icon_tick"></string>
+    <string name="icon_invoice_fill"></string>
+    <string name="icon_invoice"></string>
+    <string name="multiple_users"></string>
+    <string name="icon_man_user"></string>
+</resources>

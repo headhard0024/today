@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#098173</color>
+  <color name="colorPrimaryDark">#F1F1F1</color>
+  <color name="colorAccent">#06473A</color>
+  <color name="black">#333333</color>
+  <color name="blackLite">#8F8F8F</color>
+
+  <color name="icon_background">#FCFCFC</color>
+
+  <color name="whiteTranspanet80">#33FFFFFF</color>
+  <color name="whiteTranspanet60">#66FFFFFF</color>
+  <color name="whiteTranspanet40">#99FFFFFF</color>
+  <color name="whiteTranspanet20">#CCFFFFFF</color>
+  <color name="white">#FFFFFF</color>
+    <color name="red">#FD8274</color>
+
+</resources>

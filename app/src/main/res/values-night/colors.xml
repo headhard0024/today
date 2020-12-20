@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#098173</color>
+  <color name="colorPrimaryDark">#098173</color>
+  <color name="colorAccent">#06473A</color>
+  <color name="black">#333333</color>
+  <color name="blackLite">#8F8F8F</color>
+  <color name="white">#FFFFFF</color>
+  <color name="shrine_pink_100">#FFFF00</color>
+  <color name="shrine_pink_900">#00FFFF</color>
+  <color name="red">#FD8274</color>
+</resources>
