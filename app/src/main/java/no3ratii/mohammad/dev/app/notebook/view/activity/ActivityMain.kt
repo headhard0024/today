@@ -1,12 +1,18 @@
 package no3ratii.mohammad.dev.app.notebook.view.activity
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,10 +25,10 @@ import no3ratii.mohammad.dev.app.notebook.R
 import no3ratii.mohammad.dev.app.notebook.base.helper.DataStore
 import no3ratii.mohammad.dev.app.notebook.base.helper.GlideHelper
 import no3ratii.mohammad.dev.app.notebook.base.helper.ReplaceFragment
+import no3ratii.mohammad.dev.app.notebook.model.intrface.IRecyclerPosition
 import no3ratii.mohammad.dev.app.notebook.view.fragment.FragmentList
 import no3ratii.mohammad.dev.app.notebook.view.fragment.FragmentNote
 import no3ratii.mohammad.dev.app.notebook.view.fragment.FragmentSetting
-import no3ratii.mohammad.dev.app.notebook.model.intrface.IRecyclerPosition
 import no3ratii.mohammad.dev.app.notebook.viewModel.ListViewModel
 import no3ratii.mohammad.dev.app.notebook.viewModel.NoteViewModel
 import no3ratii.mohammad.dev.app.notebook.viewModel.SettingFragmentViewModel
@@ -44,13 +50,14 @@ class ActivityMain : AppCompatActivity() {
         userViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
         noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         settingViewModel = ViewModelProvider(this).get(SettingFragmentViewModel::class.java)
-
+        val actionBar: android.app.ActionBar? = actionBar
         initUserImage()
 
         /*initialize bottom navigation*/
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.userList -> {
+                    setStatusBarColor("userList", toolbar, R.color.colorPrimaryDark)
                     txtTitle.text = "یادداشت"
                     ReplaceFragment(
                         FragmentList(),
@@ -61,6 +68,7 @@ class ActivityMain : AppCompatActivity() {
                     true
                 }
                 R.id.noteList -> {
+                    setStatusBarColor("noteList", toolbar, R.color.colorPrimaryDark)
                     txtTitle.text = "برنامه روزانه"
                     ReplaceFragment(
                         FragmentNote(),
@@ -71,7 +79,7 @@ class ActivityMain : AppCompatActivity() {
                     true
                 }
                 R.id.setting -> {
-                    txtTitle.text = "برنامه روزانه"
+                    setStatusBarColor("setting", toolbar, R.color.colorAccent)
                     ReplaceFragment(
                         FragmentSetting(),
                         this.supportFragmentManager,
@@ -124,6 +132,20 @@ class ActivityMain : AppCompatActivity() {
         })
     }
 
+    private fun setStatusBarColor(fragmentName: String, toolbar: Toolbar?, colorPrimaryDark: Int) {
+        if (fragmentName.equals("userList") || fragmentName.equals("noteList")) {
+            toolbar?.visibility = View.VISIBLE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.statusBarColor = ContextCompat.getColor(this, colorPrimaryDark)
+            }
+        } else {
+            toolbar?.visibility = View.GONE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.statusBarColor = ContextCompat.getColor(this, colorPrimaryDark)
+            }
+        }
+    }
+
     private fun initUserImage() {
         val imageUrl = DataStore.getValue("IMAGE_URL")
         imageUrl.asLiveData().observe(this as LifecycleOwner, Observer {
@@ -132,8 +154,8 @@ class ActivityMain : AppCompatActivity() {
             }
         })
 
-        settingViewModel.imageUrl.observe(this , Observer {
-                GlideHelper(imgUserImage , it , R.drawable.ic_account_circle).bilde()
+        settingViewModel.imageUrl.observe(this, Observer {
+            GlideHelper(imgUserImage, it, R.drawable.ic_account_circle).bilde()
         })
     }
 

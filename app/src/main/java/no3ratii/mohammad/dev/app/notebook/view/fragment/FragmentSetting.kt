@@ -41,11 +41,19 @@ class FragmentSetting : Fragment() {
     }
 
     private fun initialize(view: View, savedInstanceState: Bundle?) {
+        //WordsElders a random class for get word
         view.bigText.text = WordsElders.word
+
+        //for first use and set user image in edit itme
         setUserImage(view, savedInstanceState)
 
+        //init srcollview logic
+        initScrollViewLogic(view)
+
+        // show user name in xml
         setUserNameLogic(view)
 
+        // set user image from dataStore
         val imageUrl = DataStore.getValue("IMAGE_URL")
         imageUrl.asLiveData().observe(this as LifecycleOwner, Observer {
             if (!it.equals("")) {
@@ -57,6 +65,10 @@ class FragmentSetting : Fragment() {
                 view.imgChooseImage.setImageResource(R.drawable.ic_add_white)
             }
         })
+    }
+
+    private fun initScrollViewLogic(view: View) {
+
     }
 
     private fun setUserNameLogic(view: View) {
