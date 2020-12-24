@@ -2,6 +2,7 @@ package no3ratii.mohammad.dev.app.notebook.view.adapter
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.user_item.view.txtStartTime
 import kotlinx.android.synthetic.main.user_item.view.txtTitle
 import no3ratii.mohammad.dev.app.notebook.viewModel.ListViewModel
 import no3ratii.mohammad.dev.app.notebook.R
+import no3ratii.mohammad.dev.app.notebook.base.helper.CirculeRevealHelper
 import no3ratii.mohammad.dev.app.notebook.base.helper.PopupDialog
 import no3ratii.mohammad.dev.app.notebook.model.User
 import no3ratii.mohammad.dev.app.notebook.view.activity.ActivityUpdate
@@ -147,6 +149,10 @@ class ListAdapter(val activity: ActivityMain, val lifecycleOwner: ViewModelStore
         }
 
         holder.itemView.layRoot.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                CirculeRevealHelper(it, startcolor = R.color.whiteF1, defaultColor = R.color.white)
+                    .init()
+            }
             val intent = Intent(it.context, ActivityUpdate::class.java)
             intent.putExtra("id", item.id)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

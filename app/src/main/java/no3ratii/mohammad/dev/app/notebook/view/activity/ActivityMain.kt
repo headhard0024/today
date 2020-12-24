@@ -106,6 +106,29 @@ class ActivityMain : AppCompatActivity() {
             }
         }
 
+        FragmentNote.setContactOnBackPress(object :IRecyclerPosition{
+            override fun onBackPress(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int,
+                fab: FloatingActionButton
+            ) {
+                if (dy > 0 && fab.visibility === View.VISIBLE) {
+                    fab.hide()
+                    setAnimation(R.anim.slide_in_top, toolbar)
+                    setAnimation(R.anim.slide_in_top_to_bottom, bottom_navigation)
+                    toolbar.visibility = View.GONE
+                    bottom_navigation.visibility = View.GONE
+                } else if (dy < 0 && fab.visibility !== View.VISIBLE) {
+                    fab.show()
+                    setAnimation(R.anim.slide_in_bottom, toolbar)
+                    setAnimation(R.anim.slide_in_bottom_to_top, bottom_navigation)
+                    toolbar.visibility = View.VISIBLE
+                    bottom_navigation.visibility = View.VISIBLE
+                }
+            }
+        })
+
         FragmentList.setContactOnBackPress(object : IRecyclerPosition {
             override fun onBackPress(
                 recyclerView: RecyclerView,
@@ -114,7 +137,6 @@ class ActivityMain : AppCompatActivity() {
                 fab: FloatingActionButton
             ) {
                 val layoutManager = LinearLayoutManager::class.java.cast(recyclerView.layoutManager)
-                Log.i("MONO", "onBackPress: " + layoutManager.findFirstVisibleItemPosition())
                 if (dy > 0 && fab.visibility === View.VISIBLE) {
                     fab.hide()
                     setAnimation(R.anim.slide_in_top, toolbar)

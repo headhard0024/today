@@ -15,8 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/material_size_8"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/material_size_8">
 
             <Button
                 android:id="@+id/button"
@@ -51,19 +51,25 @@
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/edtValue"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtLayoutFirstNameAndLastNameEdit"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/material_size_4"
-            android:focusable="true"
-            android:fontFamily="@font/iranyekanmobilelight"
-            android:hint="اینجا بنویس"
-            android:selectAllOnFocus="true"
-            android:textColor="@color/blackLite"
-            android:textSize="22sp"
-            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
-            tools:ignore="MissingConstraints" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtValue"
+                android:singleLine="true"
+                android:hint="اینجا بنویس"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
 

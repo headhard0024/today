@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_list.view.fab
 import no3ratii.mohammad.dev.app.notebook.R
 import no3ratii.mohammad.dev.app.notebook.base.G
 import no3ratii.mohammad.dev.app.notebook.base.helper.ReplaceFragment
+import no3ratii.mohammad.dev.app.notebook.model.intrface.IRecyclerPosition
 import no3ratii.mohammad.dev.app.notebook.view.activity.ActivityMain
 import no3ratii.mohammad.dev.app.notebook.view.adapter.ListAdapter
 import no3ratii.mohammad.dev.app.notebook.view.adapter.NoteAdapter
@@ -24,6 +25,14 @@ import no3ratii.mohammad.dev.app.notebook.viewModel.NoteViewModel
 
 class FragmentNote : Fragment() {
     private lateinit var noteViewModel: NoteViewModel
+
+    companion object {
+        private lateinit var contactBackPressListener: IRecyclerPosition
+        fun setContactOnBackPress(contactBackPressListener: IRecyclerPosition) {
+            this.contactBackPressListener = contactBackPressListener
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,14 +56,9 @@ class FragmentNote : Fragment() {
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && fab.visibility === View.VISIBLE) {
-                    fab.hide()
-                } else if (dy < 0 && fab.visibility !== View.VISIBLE) {
-                    fab.show()
-                }
+                contactBackPressListener.onBackPress(recyclerView,dx,dy , fab)
             }
         })
-
         return view
     }
 }

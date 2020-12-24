@@ -10,6 +10,8 @@
 
   <color name="white">#FFFFFF</color>
   <color name="whiteLite">#EAEAEA</color>
+  <color name="whiteF1">#f1f1f1</color>
+  <color name="whiteCc">#CCCCCC</color>
     <color name="red">#FD8274</color>
 
   <color name="whiteTranspanet80">#33FFFFFF</color>

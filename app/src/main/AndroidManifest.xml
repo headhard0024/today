@@ -10,18 +10,23 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".view.activity.ActivityMain"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.activity.ActivityMain"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.activity.ActivityUpdateNote"
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".view.activity.ActivityUpdate"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

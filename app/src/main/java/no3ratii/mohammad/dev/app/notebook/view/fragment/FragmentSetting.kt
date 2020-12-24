@@ -75,6 +75,11 @@ class FragmentSetting : Fragment() {
 
         //show fantezi bottomSheet
         view.layFantzi.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                CirculeRevealHelper(it, R.color.whiteLite, R.color.white)
+                    .radius(10)
+                    .init()
+            }
             showFantziBottomShet(view)
         }
 
@@ -97,7 +102,7 @@ class FragmentSetting : Fragment() {
         val manager: FragmentManager =
             (view.context as AppCompatActivity).supportFragmentManager
         // call PublicBottomSheet class and set new instance
-        PublicBottomSheet.newInstance("اسمت چیه ؟ مثلا محمد", txtName.text.toString(), "ثبت")
+        PublicBottomSheet.newInstance("اسمت چیه ؟", txtName.text.toString(), "ثبت")
             .show(manager, PublicBottomSheet.TAG)
         // call PublicBottomSheet listener for return editText value
         PublicBottomSheet.setClicked(object : IBottomShotRespons {

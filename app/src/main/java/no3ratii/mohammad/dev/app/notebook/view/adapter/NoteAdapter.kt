@@ -1,5 +1,7 @@
 package no3ratii.mohammad.dev.app.notebook.view.adapter
 
+import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +12,13 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.note_item.view.*
 import no3ratii.mohammad.dev.app.notebook.R
+import no3ratii.mohammad.dev.app.notebook.base.helper.CirculeRevealHelper
 import no3ratii.mohammad.dev.app.notebook.base.helper.PopupDialog
 import no3ratii.mohammad.dev.app.notebook.model.Note
 import no3ratii.mohammad.dev.app.notebook.view.activity.ActivityMain
 import no3ratii.mohammad.dev.app.notebook.model.intrface.IPopupClick
+import no3ratii.mohammad.dev.app.notebook.view.activity.ActivityUpdate
+import no3ratii.mohammad.dev.app.notebook.view.activity.ActivityUpdateNote
 import no3ratii.mohammad.dev.app.notebook.viewModel.NoteViewModel
 
 
@@ -59,9 +64,25 @@ class NoteAdapter(val activity: ActivityMain, val lifecycleOwner: ViewModelStore
 
     private fun LayoutLogic(holder: MyViewHolder, item: Note, tempPosition: Int) {
 
-        holder.itemView.txtId.text = "" + tempPosition
         holder.itemView.txtTitle.text = item.title
         holder.itemView.txtDesc.text = item.desc
+
+
+//        holder.itemView.imgBackRed.setOnClickListener {
+//            holder.itemView.layRoot.setBackgroundColor(holder.itemView.resources.getColor(R.color.red))
+//        }
+
+        holder.itemView.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                CirculeRevealHelper(it, startcolor = R.color.whiteF1, defaultColor = R.color.white)
+                    .init()
+            }
+            val intent = Intent(it.context, ActivityUpdateNote::class.java)
+            intent.putExtra("id", item.id)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            it.context.startActivity(intent)
+            activity.finish()
+        }
 
         holder.itemView.layRoot.setOnLongClickListener { view ->
             val manager: FragmentManager =

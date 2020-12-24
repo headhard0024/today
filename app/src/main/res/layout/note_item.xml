@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layRoot"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:layout_margin="16dp"
     android:gravity="center_vertical">
 
@@ -34,34 +34,10 @@
             android:layout_height="match_parent"
             android:layout_marginRight="8dp"
             android:fontFamily="@font/iranyekanmobilemedium"
-            android:singleLine="true"
             android:text="تست تست تتسست تستست سشی سشی سش  سش  تستست تستست تس"
             android:textColor="@color/blackLite"
             android:textSize="12sp" />
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/blackLite" />
-
-    <TextView
-        android:id="@+id/txtId"
-        android:layout_width="20dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/iranyekanmobilebold"
-        android:gravity="center"
-        android:text="1"
-        android:textColor="@color/blackLite"
-        android:textStyle="bold"
-        app:autoSizeMaxTextSize="16sp"
-        app:autoSizeMinTextSize="14sp"
-        app:autoSizeStepGranularity="14sp" />
 
 
 </LinearLayout>

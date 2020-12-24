@@ -1,12 +1,14 @@
 package no3ratii.mohammad.dev.app.notebook.view.activity
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.fragment_update.*
+import kotlinx.android.synthetic.main.activity_update.*
 import no3ratii.mohammad.dev.app.notebook.R
 import no3ratii.mohammad.dev.app.notebook.viewModel.ListViewModel
 import no3ratii.mohammad.dev.app.notebook.base.G
+import no3ratii.mohammad.dev.app.notebook.base.helper.CirculeRevealHelper
 import no3ratii.mohammad.dev.app.notebook.model.User
 
 
@@ -23,36 +25,31 @@ class ActivityUpdate : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_update)
+        setContentView(R.layout.activity_update)
 
+        //init use view model and set use value from use id
         userViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
         val userId = intent.getIntExtra("id", 1)
         user = userViewModel.singleUser(userId)
 
-//        supportActionBar?.subtitle = user!!.title;
+        //set onClicked values
+        initListener(userId)
+        layoutLogic(user!!)
 
-        imgDelete.setOnClickListener {
-            deleteUser(user!!)
-            finish()
-        }
-
+        // update time picker value by defult time get in use set
         timerInitialize(user!!)
+    }
 
-        edtTitle.setText(user!!.title)
-        edtDesc.setText(user!!.desc)
+    private fun layoutLogic(user: User) {
+        edtTitle.setText(user.title)
+        edtDesc.setText(user.desc)
+        txtToolbarTitle.text = user.title
+    }
 
-        val starthourtime = user!!.startTiem.split(":")
-        val startmintime = user!!.endTime.split(":")
-        hourStartTime.value = starthourtime[0].toInt()
-        minutesStartTime.value = starthourtime[1].toInt()
-        hourEndTime.value = startmintime[0].toInt()
-        minutesEndTime.value = startmintime[1].toInt()
+    private fun initListener(userId: Int) {
 
-        mHourStartTime = starthourtime[0].toInt()
-        mMinutesStartTime= starthourtime[1].toInt()
-        mHourEndTime  = startmintime[0].toInt()
-        mMinutesEndTime = startmintime[1].toInt()
-
+        //set Time value to show and show
+        setTimersValue()
         btnUpdate.setOnClickListener {
             startTime = "$mHourStartTime:$mMinutesStartTime"
             endTime = "$mHourEndTime:$mMinutesEndTime"
@@ -66,6 +63,33 @@ class ActivityUpdate : AppCompatActivity() {
             )
             finish()
         }
+
+        imgDelete.setOnClickListener {
+            deleteUser(user!!)
+            finish()
+        }
+
+        imgBack.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                CirculeRevealHelper(it, startcolor = R.color.whiteCc, defaultColor = R.color.whiteLite)
+                    .init()
+            }
+            finish()
+        }
+    }
+
+    private fun setTimersValue() {
+        val starthourtime = user!!.startTiem.split(":")
+        val startmintime = user!!.endTime.split(":")
+        hourStartTime.value = starthourtime[0].toInt()
+        minutesStartTime.value = starthourtime[1].toInt()
+        hourEndTime.value = startmintime[0].toInt()
+        minutesEndTime.value = startmintime[1].toInt()
+
+        mHourStartTime = starthourtime[0].toInt()
+        mMinutesStartTime = starthourtime[1].toInt()
+        mHourEndTime = startmintime[0].toInt()
+        mMinutesEndTime = startmintime[1].toInt()
     }
 
     private fun upDateUser(
@@ -76,7 +100,7 @@ class ActivityUpdate : AppCompatActivity() {
         endTime: String,
         checked: Boolean
     ) {
-        val user = User(userId, name, family, startTime, endTime , checked)
+        val user = User(userId, name, family, startTime, endTime, checked)
         userViewModel.updateUser(user)
     }
 
@@ -100,6 +124,7 @@ class ActivityUpdate : AppCompatActivity() {
             mMinutesEndTime = i2
         }
     }
+
     private fun deleteUser(user: User) {
         userViewModel.deleteUser(user)
     }
