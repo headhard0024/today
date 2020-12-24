@@ -8,11 +8,13 @@
 
   <color name="icon_background">#FCFCFC</color>
 
+  <color name="white">#FFFFFF</color>
+  <color name="whiteLite">#EAEAEA</color>
+    <color name="red">#FD8274</color>
+
   <color name="whiteTranspanet80">#33FFFFFF</color>
   <color name="whiteTranspanet60">#66FFFFFF</color>
   <color name="whiteTranspanet40">#99FFFFFF</color>
   <color name="whiteTranspanet20">#CCFFFFFF</color>
-  <color name="white">#FFFFFF</color>
-    <color name="red">#FD8274</color>
 
 </resources>

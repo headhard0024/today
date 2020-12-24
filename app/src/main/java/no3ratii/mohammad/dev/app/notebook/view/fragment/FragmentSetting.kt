@@ -1,25 +1,35 @@
 package no3ratii.mohammad.dev.app.notebook.view.fragment
 
+//import kotlinx.android.synthetic.main.fragment_setting.view.edtUserName
+
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import com.aminography.choosephotohelper.ChoosePhotoHelper
 import com.aminography.choosephotohelper.callback.ChoosePhotoCallback
 import kotlinx.android.synthetic.main.fragment_setting.*
 import kotlinx.android.synthetic.main.fragment_setting.view.*
-import kotlinx.android.synthetic.main.fragment_setting.view.edtUserName
-import kotlinx.android.synthetic.main.fragment_setting.view.imgUserImage
 import no3ratii.mohammad.dev.app.notebook.R
+import no3ratii.mohammad.dev.app.notebook.base.helper.CirculeRevealHelper
 import no3ratii.mohammad.dev.app.notebook.base.helper.DataStore
 import no3ratii.mohammad.dev.app.notebook.base.helper.GlideHelper
+import no3ratii.mohammad.dev.app.notebook.base.helper.PublicBottomSheet
 import no3ratii.mohammad.dev.app.notebook.model.WordsElders
+import no3ratii.mohammad.dev.app.notebook.model.intrface.IBottomShotRespons
 import no3ratii.mohammad.dev.app.notebook.viewModel.SettingFragmentViewModel
+import kotlin.math.hypot
+
 
 class FragmentSetting : Fragment() {
 
@@ -51,14 +61,29 @@ class FragmentSetting : Fragment() {
         initScrollViewLogic(view)
 
         // show user name in xml
-        setUserNameLogic(view)
+        setUserNameAndFantziLogic(view)
+
+        //show name bottomShet
+        view.layName.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                CirculeRevealHelper(it, R.color.whiteLite, R.color.white)
+                    .radius(10)
+                    .init()
+            }
+            showNameBottomShet(view)
+        }
+
+        //show fantezi bottomSheet
+        view.layFantzi.setOnClickListener {
+            showFantziBottomShet(view)
+        }
 
         // set user image from dataStore
         val imageUrl = DataStore.getValue("IMAGE_URL")
         imageUrl.asLiveData().observe(this as LifecycleOwner, Observer {
             if (!it.equals("")) {
                 GlideHelper(view.imgUserImage, it!!, R.drawable.ic_account_circle).bilde()
-                view.imgChooseImage.setImageResource(R.drawable.ic_edit)
+                view.imgChooseImage.setImageResource(R.drawable.ic_edit_white)
                 view.imgChooseImage.setPadding(15, 15, 15, 15)
             } else {
                 view.imgUserImage.setImageResource(R.drawable.ic_account_circle)
@@ -67,31 +92,61 @@ class FragmentSetting : Fragment() {
         })
     }
 
+    private fun showNameBottomShet(view: View) {
+        //set bottom sheet manager
+        val manager: FragmentManager =
+            (view.context as AppCompatActivity).supportFragmentManager
+        // call PublicBottomSheet class and set new instance
+        PublicBottomSheet.newInstance("اسمت چیه ؟ مثلا محمد", txtName.text.toString(), "ثبت")
+            .show(manager, PublicBottomSheet.TAG)
+        // call PublicBottomSheet listener for return editText value
+        PublicBottomSheet.setClicked(object : IBottomShotRespons {
+            override fun onEditTextValue(value: String) {
+                txtUserName.text = value
+                txtName.text = value
+                DataStore.setValue(value, "USER_NAME")
+            }
+        })
+    }
+
+    private fun showFantziBottomShet(view: View) {
+        //set bottom sheet manager
+        val manager: FragmentManager =
+            (view.context as AppCompatActivity).supportFragmentManager
+        // call PublicBottomSheet class and set new instance
+        PublicBottomSheet.newInstance(
+            "فانتزیت چیه ؟ مثلا سفر به ماه",
+            txtFantezi.text.toString(),
+            "ثبت"
+        )
+            .show(manager, PublicBottomSheet.TAG)
+        // call PublicBottomSheet listener for return editText value
+        PublicBottomSheet.setClicked(object : IBottomShotRespons {
+            override fun onEditTextValue(value: String) {
+                txtFantezi.text = value
+                DataStore.setValue(value, "FANTZI")
+            }
+        })
+    }
+
+
     private fun initScrollViewLogic(view: View) {
 
     }
 
-    private fun setUserNameLogic(view: View) {
+    private fun setUserNameAndFantziLogic(view: View) {
         var userName = DataStore.getValue("USER_NAME")
+        var fantzi = DataStore.getValue("FANTZI")
         userName.asLiveData().observe(this as LifecycleOwner, Observer {
             if (it != null) {
                 view.txtUserName.text = it
-                view.edtUserName.setText(it)
+                view.txtName.text = it
             }
         })
-
-        settingViewModel.userName.observe(viewLifecycleOwner, Observer {
-            view.txtUserName.text = it
-        })
-
-        settingViewModel.userName.value = view.edtUserName.text.toString()
-        view.edtUserName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                settingViewModel.userName.value = "" + p0
+        fantzi.asLiveData().observe(this as LifecycleOwner, Observer {
+            if (it != null) {
+                view.txtFantezi.text = it
             }
-
         })
     }
 
@@ -139,10 +194,5 @@ class FragmentSetting : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         choosePhotoHelper!!.onSaveInstanceState(outState)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        DataStore.setValue(edtUserName.text.toString(), "USER_NAME")
     }
 }

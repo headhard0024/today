@@ -169,31 +169,103 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingTop="8dp">
 
                 <LinearLayout
+                    android:id="@+id/layName"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:padding="@dimen/material_size_8">
+                    android:gravity="right"
+                    android:padding="@dimen/material_size_4"
+                    android:layout_marginLeft="@dimen/material_size_4"
+                    android:layout_marginRight="@dimen/material_size_4"
+                    android:layout_marginTop="@dimen/material_size_16"
+                    android:layout_marginBottom="@dimen/material_size_8"
+                    android:layout_height="wrap_content">
 
-                    <EditText
-                        android:id="@+id/edtUserName"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:src="@drawable/ic_edit_black"
+                        android:layout_height="20dp"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/iranyekanmobilelight"
-                        android:hint="اینجا بنویس"
-                        android:layoutDirection="rtl" />
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:text="نام"
+                            android:textColor="@color/blackLite"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/iranyekanmobilebold"
+                            android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:id="@+id/txtNameBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        <TextView
+                            android:id="@+id/txtName"
+                            android:gravity="right|center"
+                            android:layout_width="match_parent"
+                            android:fontFamily="@font/iranyekanmobilemedium"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:layout_marginRight="@dimen/material_size_8"
+                            android:textSize="14sp"
+                            android:layout_height="40dp"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="40dp"
                         android:layout_marginLeft="@dimen/material_size_8"
-                        android:fontFamily="@font/iranyekanmobilebold"
-                        android:gravity="center|right"
-                        android:text="اسمت چیه ؟ " />
+                        android:src="@drawable/ic_person"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layFantzi"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:padding="@dimen/material_size_4"
+                    android:layout_marginLeft="@dimen/material_size_4"
+                    android:layout_marginRight="@dimen/material_size_4"
+                    android:layout_marginTop="@dimen/material_size_8"
+                    android:layout_marginBottom="@dimen/material_size_8"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:src="@drawable/ic_edit_black"
+                        android:layout_height="20dp"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:text="فانتزی"
+                            android:textColor="@color/blackLite"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/iranyekanmobilebold"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/txtFantezi"
+                            android:gravity="right|center"
+                            android:layout_width="match_parent"
+                            android:fontFamily="@font/iranyekanmobilemedium"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:layout_marginRight="@dimen/material_size_8"
+                            android:textSize="14sp"
+                            android:layout_height="40dp"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_marginLeft="@dimen/material_size_8"
+                        android:src="@drawable/ic_error_outline"
+                        android:layout_height="match_parent"/>
+
                 </LinearLayout>
 
                 <LinearLayout
